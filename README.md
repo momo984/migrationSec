@@ -290,19 +290,43 @@ az network vnet subnet update -g $ResourceGroupName --vnet-name $Vnet -n $subnet
 ```powershell
 
 $vnet=$VnetSpoke30
-$subnet1=
-$subnet2=
-$subnet3=
-$subnet4=
-$subnet5=
+$subnet1="SubnetRouter"
+$subnet2="SubnetFiori"
+$subnet3="SubnetSolman"
+az network vnet subnet update -g $ResourceGroupName --vnet-name $Vnet -n $subnet1 --route-table $Routeid
+az network vnet subnet update -g $ResourceGroupName --vnet-name $Vnet -n $subnet2 --route-table $Routeid
+az network vnet subnet update -g $ResourceGroupName --vnet-name $Vnet -n $subnet3 --route-table $Routeid
+
+```
+
+### II.	Associate Route Table  to 172.31.40.0/24 $VnetSpoke40
+
+ - Special for the current config 
+```powershell
+
+$vnet=$VnetSpoke40
+$subnet1="SubnetAppPRD"
+$subnet2="SubnetDatosPRD"
+
+az network vnet subnet update -g $ResourceGroupName --vnet-name $Vnet -n $subnet1 --route-table $Routeid
+az network vnet subnet update -g $ResourceGroupName --vnet-name $Vnet -n $subnet2 --route-table $Routeid
+```
+### III.	Associate Route Table  to 172.31.50.0/24 $VnetSpoke50
+
+ - Special for the current config 
+```powershell
+
+$vnet=$VnetSpoke50
+$subnet1="SubnetAppQAS"
+$subnet2="SubnetDatosQAS"
+$subnet3="SubnetAppDEV"
+$subnet4="SubnetDatosDEV"
 az network vnet subnet update -g $ResourceGroupName --vnet-name $Vnet -n $subnet1 --route-table $Routeid
 az network vnet subnet update -g $ResourceGroupName --vnet-name $Vnet -n $subnet2 --route-table $Routeid
 az network vnet subnet update -g $ResourceGroupName --vnet-name $Vnet -n $subnet3 --route-table $Routeid
 az network vnet subnet update -g $ResourceGroupName --vnet-name $Vnet -n $subnet4 --route-table $Routeid
-az network vnet subnet update -g $ResourceGroupName --vnet-name $Vnet -n $subnet5 --route-table $Routeid
 
 ```
-
 
 
 
