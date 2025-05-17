@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAP Migration Mind Map</title>
+    <script src="https://unpkg.com/vis-network@9.1.2/standalone/umd/vis-network.min.js"></script>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        #mindmap {
+            width: 100%;
+            height: 100vh;
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+    <div id="mindmap"></div>
+    <script>
+        // Define nodes with tooltips (title property)
+        var nodes = [
+            { id: 1, label: "SAP Migrations", color: "#FF9999", shape: "box", title: "Main categories of SAP migration types" },
+            { id: 2, label: "System Migration", color: "#99CCFF", shape: "box", title: "Purpose: Hardware refresh, data center relocation, or cloud adoption" },
+            { id: 3, label: "Homogeneous", color: "#CCFF99", shape: "box", title: "Moving SAP systems to a new environment with the same OS and database (e.g., from on-premise Linux/HANA to cloud Linux/HANA)" },
+            { id: 4, label: "Heterogeneous", color: "#CCFF99", shape: "box", title: "Changing the OS or database during migration (e.g., from Windows/Oracle to Linux/HANA). Requires tools like SAP Software Provisioning Manager or DMO" },
+            { id: 5, label: "SAP S/4HANA Migration", color: "#99CCFF", shape: "box", title: "Purpose: Transition to SAP’s next-generation ERP for real-time analytics and simplified architecture" },
+            { id: 6, label: "Greenfield", color: "#CCFF99", shape: "box", title: "Fresh installation of SAP S/4HANA with new configurations and data migration. Ideal for new processes or starting from scratch" },
+            { id: 7, label: "Brownfield", color: "#CCFF99", shape: "box", title: "Converting an existing SAP ECC system to S/4HANA, retaining configurations, customizations, and historical data. Uses tools like SUM with DMO" },
+            { id: 8, label: "Bluefield", color: "#CCFF99", shape: "box", title: "Hybrid approach, combining elements of greenfield and brownfield. Selectively migrates data and processes to S/4HANA while optimizing business processes" },
+            { id: 9, label: "Cloud Migration", color: "#99CCFF", shape: "box", title: "Purpose: Cost optimization, scalability, and flexibility" },
+            { id: 10, label: "Lift-and-Shift", color: "#CCFF99", shape: "box", title: "Rehosting SAP systems in the cloud without significant changes" },
+            { id: 11, label: "Replatforming", color: "#CCFF99", shape: "box", title: "Optimizing the system for cloud (e.g., adopting cloud-native services)" },
+            { id: 12, label: "Refactoring", color: "#CCFF99", shape: "box", title: "Redesigning applications to leverage cloud capabilities (e.g., using SAP BTP)" }
+        ];
+
+        // Define edges
+        var edges = [
+            { from: 1, to: 2, arrows: "to" },
+            { from: 2, to: 3, arrows: "to" },
+            { from: 2, to: 4, arrows: "to" },
+            { from: 1, to: 5, arrows: "to" },
+            { from: 5, to: 6, arrows: "to" },
+            { from: 5, to: 7, arrows: "to" },
+            { from: 5, to: 8, arrows: "to" },
+            { from: 1, to: 9, arrows: "to" },
+            { from: 9, to: 10, arrows: "to" },
+            { from: 9, to: 11, arrows: "to" },
+            { from: 9, to: 12, arrows: "to" }
+        ];
+
+        // Create a network
+        var container = document.getElementById("mindmap");
+        var data = {
+            nodes: new vis.DataSet(nodes),
+            edges: new vis.DataSet(edges)
+        };
+        var options = {
+            nodes: {
+                font: { size: 14, color: "#000" },
+                borderWidth: 2
+            },
+            edges: {
+                color: "#333",
+                arrows: { to: { enabled: true, scaleFactor: 1 } }
+            },
+            physics: {
+                enabled: true,
+                hierarchicalRepulsion: {
+                    nodeDistance: 150
+                }
+            },
+            interaction: {
+                dragNodes: true,
+                zoomView: true,
+                dragView: true,
+                hover: true
+            },
+            layout: {
+                hierarchical: {
+                    enabled: false
+                }
+            }
+        };
+
+        var network = new vis.Network(container, data, options);
+
+        // Center the network on load
+        network.fit();
+    </script>
+</body>
+</html>
