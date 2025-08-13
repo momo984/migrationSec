@@ -1,3 +1,4 @@
+```mermaid
 graph TD
     subgraph "Región Primaria (e.g., East US) - HA 99.99% con 3 AZs"
         subgraph "Availability Zone 1"
